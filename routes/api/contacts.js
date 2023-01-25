@@ -89,7 +89,7 @@ router.delete("/:contactId", async (req, res, next) => {
     next(error);
     return;
   }
-  res.json({ message: "template message", data });
+  res.json({ message: "contact deleted", data });
 });
 
 router.put("/:contactId", async (req, res, next) => {
