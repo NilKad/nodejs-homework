@@ -1,5 +1,5 @@
 const contactsOperations = require("../../models/contacts.js");
-const contactValidate = require("./contactValidate.js");
+// const { validation } = require("../../middleWares");
 const nullQuery = require("./nullQuery.js");
 
 const add = async (req, res, next) => {
@@ -7,17 +7,9 @@ const add = async (req, res, next) => {
   const body = req.body;
   console.log("post req.params", body);
 
-  try {
-    contactValidate(body);
-    data = await contactsOperations.addContact(body);
-    nullQuery(data);
-    res.status(201);
-  } catch (error) {
-    console.log("!!!!!!POST CATCH");
-    console.log("!!!!!!POST ERROR.MESSAGE: ", error.message);
-    next(error);
-    return;
-  }
+  data = await contactsOperations.addContact(body);
+  nullQuery(data);
+  res.status(201);
   console.log("!!!!!!POST END");
   res.json({ message: "contacts added", data });
 };

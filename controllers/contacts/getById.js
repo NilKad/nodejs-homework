@@ -5,14 +5,8 @@ const getById = async (req, res, next) => {
   let data = null;
   const { contactId } = req.params;
 
-  try {
-    data = await contactsOperations.getContactById(contactId);
-    nullQuery(data);
-  } catch (error) {
-    console.log("!!!!Router CATCH GET/:contactId");
-    next(error);
-    return;
-  }
+  data = await contactsOperations.getContactById(contactId);
+  nullQuery(data);
   res.json({ message: "read contacts by ID", data });
 };
 

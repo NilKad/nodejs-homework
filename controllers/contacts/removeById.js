@@ -4,16 +4,12 @@ const nullQuery = require("./nullQuery.js");
 const removeById = async (req, res, next) => {
   let data = null;
   const { contactId } = req.params;
+  // console.log("!!!!removeByID req.params: ", req.params);
 
-  try {
-    data = await contactsOperations.removeContact(contactId);
-    nullQuery(data);
-    res.status(200);
-    res.message("contact deleted");
-  } catch (error) {
-    next(error);
-    return;
-  }
+  data = await contactsOperations.removeContact(contactId);
+  nullQuery(data);
+  // console.log("!!!!removeByID data: ", data);
+  res.status(200);
   res.json({ message: "contact deleted", data });
 };
 

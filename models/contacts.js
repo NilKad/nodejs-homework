@@ -14,6 +14,7 @@ const listContacts = async () => {
     console.log("error list contacts: ", error);
     throw error;
   }
+  // console.log()
   return result;
 };
 
@@ -30,27 +31,6 @@ const getContactById = async (contactId) => {
     throw error;
   }
   return result;
-};
-
-const removeContact = async (contactId) => {
-  let deletedContact = null;
-  if (!contactId) {
-    return null;
-  }
-  try {
-    const data = await listContacts();
-    deletedContact = data.find((e) => e.id === contactId);
-    if (!deletedContact) {
-      return null;
-    }
-    const result = data.filter((e) => e.id !== contactId);
-    const forWrite = JSON.stringify(result, null, 2);
-    await fs.writeFile(contactsPath, forWrite, "utf8");
-  } catch (error) {
-    console.log("error list contacts: ", error);
-    throw error;
-  }
-  return deletedContact;
 };
 
 const addContact = async (body) => {
@@ -91,6 +71,28 @@ const updateContact = async (contactId, body) => {
     throw error;
   }
   return updateContact;
+};
+
+const removeContact = async (contactId) => {
+  let deletedContact = null;
+  if (!contactId) {
+    return null;
+  }
+  try {
+    const data = await listContacts();
+    deletedContact = data.find((e) => e.id === contactId);
+    if (!deletedContact) {
+      return null;
+    }
+    const result = data.filter((e) => e.id !== contactId);
+    const forWrite = JSON.stringify(result, null, 2);
+    await fs.writeFile(contactsPath, forWrite, "utf8");
+  } catch (error) {
+    console.log("error list contacts: ", error);
+    throw error;
+  }
+  // console.log("!!!!! removeContact deletedContact: ", deletedContact);
+  return deletedContact;
 };
 
 module.exports = {
