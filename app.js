@@ -2,6 +2,8 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 
+require("dotenv").config();
+
 const contactsRouter = require("./routes/api/contacts");
 
 const app = express();
@@ -22,6 +24,7 @@ app.use((req, res) => {
 
 app.use((err, req, res, next) => {
   console.log("!!!!! (err, req, resp, next) ");
+  if(!err.status) err.status = 500
   // console.log("err: ", err);
   res.status(err.status).json({ message: err.message });
 });
