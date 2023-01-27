@@ -8,7 +8,7 @@ const getById = async (req, res, next) => {
   const { contactId } = req.params;
 
   data = await Product.findById(contactId);
-  console.log(data);
+  // console.log(data);
   nullQuery(data);
   res.json({ message: "read contacts by ID", data });
 };

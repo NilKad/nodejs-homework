@@ -32,8 +32,7 @@ const joiContactSchema = Joi.object({
 });
 
 const idContactSchema = Joi.object({
-  // contactId: Joi.string().required("Error id requared"),
-  // favorite: Joi.boolean(),
+  contactId: Joi.string().length(24),
 });
 
 const Contact = model("contacts", contactSchema);
