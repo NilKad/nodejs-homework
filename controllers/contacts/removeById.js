@@ -1,4 +1,4 @@
-const contactsOperations = require("../../models/contacts.js");
+const { Product } = require("../../models");
 const nullQuery = require("./nullQuery.js");
 
 const removeById = async (req, res, next) => {
@@ -6,7 +6,7 @@ const removeById = async (req, res, next) => {
   const { contactId } = req.params;
   // console.log("!!!!removeByID req.params: ", req.params);
 
-  data = await contactsOperations.removeContact(contactId);
+  data = await Product.findByIdAndRemove(contactId);
   nullQuery(data);
   // console.log("!!!!removeByID data: ", data);
   res.status(200);

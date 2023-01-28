@@ -10,4 +10,16 @@ const validation = (schema) => {
   };
 };
 
-module.exports = validation;
+const validationId = (schema) => {
+  return (req, res, next) => {
+    const { error } = schema.validate(req.params);
+    if (error) {
+      error.status = 400;
+      throw error;
+    }
+    next();
+    // return true;
+  };
+};
+
+module.exports = {validation, validationId};

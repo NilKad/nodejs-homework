@@ -1,5 +1,7 @@
-const contactsOperations = require("../../models/contacts.js");
+// const contactsOperations = require("../../models/contacts-json.js");
 // const { validation } = require("../../middleWares");
+const { Product } = require("../../models");
+
 const nullQuery = require("./nullQuery.js");
 
 const add = async (req, res, next) => {
@@ -7,7 +9,7 @@ const add = async (req, res, next) => {
   const body = req.body;
   console.log("post req.params", body);
 
-  data = await contactsOperations.addContact(body);
+  data = await Product.create(body);
   nullQuery(data);
   res.status(201);
   console.log("!!!!!!POST END");
