@@ -10,7 +10,7 @@ router.get("/", ctrlWrapper(ctrl.getAll));
 
 router.get("/:contactId", ctrlWrapper(ctrl.getById));
 
-router.post("/", ctrlWrapper(ctrl.add));
+router.post("/", validation(joiContactSchema), ctrlWrapper(ctrl.add));
 
 router.put(
   "/:contactId",
