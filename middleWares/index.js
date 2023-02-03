@@ -1,5 +1,13 @@
-const { validation, validationId } = require("./validation");
+const { validation } = require("./validation");
 const ctrlWrapper = require("./ctrlWrapper");
 const isValidId = require("./isValidId");
+const isQueryEmail = require("./isQueryEmail");
+const auth = require("./authMiddleware");
 
-module.exports = { validation, validationId, ctrlWrapper, isValidId };
+module.exports = {
+  validation,
+  ctrlWrapper,
+  isValidId,
+  isQueryEmail,
+  auth,
+};

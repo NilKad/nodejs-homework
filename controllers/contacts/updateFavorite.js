@@ -1,4 +1,4 @@
-const { Product } = require("../../models");
+const { Contact } = require("../../models");
 const nullQuery = require("./nullQuery.js");
 
 const updateFavorite = async (req, res, next) => {
@@ -7,7 +7,7 @@ const updateFavorite = async (req, res, next) => {
   // console.log('req.params: ', req.params)
   const { contactId } = req.params;
   const { favorite } = req.body;
-  data = await Product.findByIdAndUpdate(
+  data = await Contact.findByIdAndUpdate(
     contactId,
     { favorite },
     { new: true }
