@@ -12,4 +12,6 @@ router.get("/current", ctrlWrapper(auth), ctrlWrapper(ctrl.getCurrent));
 
 router.get("/logout", ctrlWrapper(auth), ctrlWrapper(ctrl.logout));
 
+router.patch("/:userId", ctrlWrapper(auth), ctrlWrapper(ctrl.updateUser));
+
 module.exports = router;

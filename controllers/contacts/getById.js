@@ -1,5 +1,4 @@
 const { Contact } = require("../../models");
-
 const nullQuery = require("./nullQuery.js");
 
 const getById = async (req, res, next) => {
@@ -7,7 +6,6 @@ const getById = async (req, res, next) => {
   const { contactId } = req.params;
 
   data = await Contact.findById(contactId);
-  // console.log(data);
   nullQuery(data);
   res.json({ message: "read contacts by ID", data });
 };

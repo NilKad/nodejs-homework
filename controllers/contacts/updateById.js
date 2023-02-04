@@ -1,5 +1,4 @@
 const { Contact } = require("../../models");
-// const contactsOperations = require("../../models/contacts-json.js");
 const nullQuery = require("./nullQuery.js");
 
 const updateById = async (req, res, next) => {
