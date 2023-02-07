@@ -1,8 +1,10 @@
 const { User } = require("../../models");
 const { requestError } = require("../../utils");
 const bcrypt = require("bcryptjs");
+const gravatar = require("gravatar");
 
 const signup = async (req, res, next) => {
+  console.log("!!!!! signup");
   const { email, password } = req.body;
 
   const isFoundEmail = await User.findOne({ email: email });
@@ -12,9 +14,8 @@ const signup = async (req, res, next) => {
     throw err;
   }
   const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-  console.log(password);
-  const user = await User.create({ email, password: hashPassword });
-
+  const avatarURL = gravatar.url(email);
+  const user = await User.create({ email, password: hashPassword, avatarURL });
   res.status(201).json({
     status: 201,
     message: "User registered",
@@ -22,6 +23,7 @@ const signup = async (req, res, next) => {
       email: user.email,
       subscription: user.subscription,
       token: user.token,
+      avatarURL: user.avatarURL,
     },
   });
 };
