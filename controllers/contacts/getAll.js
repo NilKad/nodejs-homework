@@ -5,6 +5,9 @@ const getAll = async (req, res, next) => {
 
   const { _id } = req.user;
   const queryObject = { owner: _id };
+  const projection = { projection: "-createdAt" };
+  console.log("projection:\t", projection);
+  console.log("queryObject: ", queryObject);
   const totalContactsOwner = await Contact.find(queryObject).count();
 
   let { limit: perPage = 5, page = 1, favorite = null } = req.query;

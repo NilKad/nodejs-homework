@@ -11,15 +11,28 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({
+const uploadAvatar = multer({
   storage: storage,
-  limits: { fileSize: 10000000 },
+  limits: { fileSize: 5000000 },
   fileFilter: (req, file, cb) => {
     if (file.mimetype.includes("image")) {
       cb(null, true);
     }
     cb(null, false);
   },
-});
+}).single("avatar");
 
-module.exports = upload;
+const uploadDOC = multer({
+  storage: storage,
+  limits: { fileSize: 15000000 },
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.includes("aplication")) {
+      cb(null, true);
+    }
+    cb(null, false);
+  },
+}).single("doc");
+
+// module.exports = upload;
+module.exports.avatar = uploadAvatar;
+module.exports.docs = uploadDOC;

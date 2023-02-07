@@ -5,7 +5,7 @@ const fs = require("fs/promises");
 
 const { DB_HOST, PORT, TEMP_DIR } = process.env;
 
-console.log("DB_HOST: ", DB_HOST);
+// console.log("DB_HOST: ", DB_HOST);
 mongoose.set("strictQuery", true);
 
 const isAcceessible = (path) => {

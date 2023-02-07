@@ -4,13 +4,18 @@ const Jimp = require("jimp");
 const avatarsDir = process.env.AVATARS_DIR;
 const fs = require("fs/promises");
 const { User } = require("../../models");
-const newPath = path.join(process.cwd(), "public", avatarsDir);
+const prefixNewPath = path.join(process.cwd(), "public", avatarsDir);
 
 const updateAvatar = async (req, res, next) => {
   const { _id: id } = req.user;
   if (req.file) {
     const { originalname, path: fullPath } = req.file;
-    const avatarURL = path.join(newPath, `${id}-${originalname}`);
+    const [extension] = originalname.split(".").reverse();
+    // console.log(extension);
+    // const fullAvatarURL = path.join(prefixNewPath, `${id}-${originalname}`);
+    // const avatarURL = path.join(avatarsDir, `${id}-${originalname}`);
+    const fullAvatarURL = path.join(prefixNewPath, `${id}-avatar.${extension}`);
+    const avatarURL = path.join(avatarsDir, `${id}-avatar.${extension}`);
 
     const img = await Jimp.read(fullPath);
     try {
@@ -19,7 +24,7 @@ const updateAvatar = async (req, res, next) => {
       console.log(error);
     }
     await img.autocrop().cover(250, 250).writeAsync(fullPath);
-    await fs.rename(fullPath, avatarURL);
+    await fs.rename(fullPath, fullAvatarURL);
     const data = await User.findByIdAndUpdate(
       id,
       { avatarURL: avatarURL },
