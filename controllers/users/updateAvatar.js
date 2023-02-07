@@ -7,24 +7,18 @@ const { User } = require("../../models");
 const newPath = path.join(process.cwd(), "public", avatarsDir);
 
 const updateAvatar = async (req, res, next) => {
-  console.log("!!!updateAvatar START");
-
   const { _id: id } = req.user;
-  console.log("updateAvatar req.file", req.file);
   if (req.file) {
     const { originalname, path: fullPath } = req.file;
     const avatarURL = path.join(newPath, `${id}-${originalname}`);
 
     const img = await Jimp.read(fullPath);
+    try {
+      await fs.unlink(req.user.avatarURL);
+    } catch (error) {
+      console.log(error);
+    }
     await img.autocrop().cover(250, 250).writeAsync(fullPath);
-    // , (err, image) => {
-    // if (err) throw err;
-    // image.resize(250, 250);
-    // image.write(fullPath);
-    // return true;
-    // next();
-    // });
-
     await fs.rename(fullPath, avatarURL);
     const data = await User.findByIdAndUpdate(
       id,
