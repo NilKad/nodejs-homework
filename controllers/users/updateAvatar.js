@@ -1,4 +1,5 @@
 const path = require("path");
+const Jimp = require("jimp");
 
 const avatarsDir = process.env.AVATARS_DIR;
 const fs = require("fs/promises");
@@ -13,6 +14,17 @@ const updateAvatar = async (req, res, next) => {
   if (req.file) {
     const { originalname, path: fullPath } = req.file;
     const avatarURL = path.join(newPath, `${id}-${originalname}`);
+
+    const img = await Jimp.read(fullPath);
+    await img.autocrop().cover(250, 250).writeAsync(fullPath);
+    // , (err, image) => {
+    // if (err) throw err;
+    // image.resize(250, 250);
+    // image.write(fullPath);
+    // return true;
+    // next();
+    // });
+
     await fs.rename(fullPath, avatarURL);
     const data = await User.findByIdAndUpdate(
       id,
