@@ -32,7 +32,7 @@ const updateAvatar = async (req, res, next) => {
       {
         new: true,
         runValidators: true,
-        projection: "-createdAt -updatedAt -token",
+        projection: "-createdAt -updatedAt -token -password",
       }
     );
     return res.status(200).json({ code: 200, message: "Update success", data });

@@ -3,13 +3,14 @@ const ctrlWrapper = require("./ctrlWrapper");
 const isValidId = require("./isValidId");
 const isQueryEmail = require("./isQueryEmail");
 const auth = require("./authMiddleware");
-// const uploadFile = require("../routes/api/uploadFile");
+const uploadFile = require("./uploadFile");
 
+// uploadFile
 module.exports = {
   validation,
   ctrlWrapper,
   isValidId,
   isQueryEmail,
   auth,
-  // uploadFile,
+  uploadFile,
 };
