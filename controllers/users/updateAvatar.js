@@ -11,18 +11,15 @@ const updateAvatar = async (req, res, next) => {
   if (req.file) {
     const { originalname, path: fullPath } = req.file;
     const [extension] = originalname.split(".").reverse();
-    // console.log(extension);
-    // const fullAvatarURL = path.join(prefixNewPath, `${id}-${originalname}`);
-    // const avatarURL = path.join(avatarsDir, `${id}-${originalname}`);
     const fullAvatarURL = path.join(prefixNewPath, `${id}-avatar.${extension}`);
     const avatarURL = path.join(avatarsDir, `${id}-avatar.${extension}`);
 
     const img = await Jimp.read(fullPath);
-    try {
-      await fs.unlink(req.user.avatarURL);
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   await fs.unlink(req.user.avatarURL);
+    // } catch (error) {
+    //   console.log(error);
+    // }
     await img.autocrop().cover(250, 250).writeAsync(fullPath);
     await fs.rename(fullPath, fullAvatarURL);
     const data = await User.findByIdAndUpdate(
