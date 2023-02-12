@@ -14,6 +14,10 @@ router.get("/current", ctrlWrapper(auth), ctrlWrapper(ctrl.getCurrent));
 
 router.get("/logout", ctrlWrapper(auth), ctrlWrapper(ctrl.logout));
 
+router.get("/verify", ctrlWrapper(ctrl.resendVerify));
+
+router.get("/verify/:verificationToken", ctrlWrapper(ctrl.varificationEmail));
+
 router.patch(
   "/avatars",
   ctrlWrapper(auth),
