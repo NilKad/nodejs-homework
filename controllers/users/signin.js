@@ -18,6 +18,17 @@ const signin = async (req, res, next) => {
   !userFromBase && loginWrong();
   const isCorrectPassword = bcrypt.compareSync(password, userFromBase.password);
   !isCorrectPassword && loginWrong();
+  if (!userFromBase.verify) {
+    const { verificationToken } = userFromBase;
+    return res.status(400).json({
+      code: 400,
+      message: `You is not verifed, please verifed`,
+      data: {
+        verificationToken,
+        verificationURL: `http://localhost:3000/api/users/verify/${verificationToken}`,
+      },
+    });
+  }
 
   const payload = { id: userFromBase._id };
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" });
