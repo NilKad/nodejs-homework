@@ -1,8 +1,9 @@
 const { User } = require("../../models");
-const { requestError, sendEmail } = require("../../utils");
+const { requestError } = require("../../utils");
 const bcrypt = require("bcryptjs");
 const gravatar = require("gravatar");
 const { v4 } = require("uuid");
+const { sendEmail } = require("../../services");
 
 const signup = async (req, res, next) => {
   console.log("!!!!! signup");
